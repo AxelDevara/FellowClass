@@ -5,7 +5,7 @@ pragma solidity >=0.8.0;
 import "./interfaces/IBentoBoxMinimal.sol";
 import "./utils/BoringBatchable.sol";
 
-contract HelloBentoBox is BoringBatchable {
+contract FellowBentoBox is BoringBatchable {
     struct Deposits {
         address user;
         address token;
