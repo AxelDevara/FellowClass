@@ -43,12 +43,12 @@ contract FellowBentoBox is BoringBatchable {
         );
     }
 
-    function depositToHelloBentoBox(
+    function depositToFellowBentoBox(
         address token,
         uint256 amount,
-        bool fromBentoBox
+        bool fromFellowToken
     ) external returns (uint256 depositedShares) {
-        if (fromBentoBox) {
+        if (fromFellowToken) {
             depositedShares = bentoBox.toShare(token, amount, false);
             bentoBox.transfer(
                 token,
@@ -75,7 +75,7 @@ contract FellowBentoBox is BoringBatchable {
         totalDeposits += 1;
     }
 
-    function withdrawFromHelloBentoBox(
+    function withdrawFromFellowBentoBox(
         uint256 depositId,
         uint256 amount,
         bool toBentoBox
