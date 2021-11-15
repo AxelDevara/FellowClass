@@ -8,11 +8,19 @@
     "check": "svelte-check --tsconfig ./tsconfig.json",
     "check:watch": "svelte-check --tsconfig ./tsconfig.json --watch"
   },
+  "author": "Axel Devara & Richard Bandstra",
+  "license": "MIT",
   "devDependencies": {
+    "@nomiclabs/hardhat-ethers": "^2.0.2",
     "@nomiclabs/hardhat-etherscan": "^2.1.7",
+    "@nomiclabs/hardhat-waffle": "^2.0.1",
     "@sveltejs/kit": "next",
     "autoprefixer": "^10.3.7",
+    "chai": "^4.3.4",
     "cssnano": "^5.0.8",
+    "ethereum-waffle": "^3.4.0",
+    "ethers": "^5.5.1",
+    "hardhat": "^2.6.7",
     "postcss": "^8.3.9",
     "postcss-load-config": "^3.1.0",
     "svelte": "^3.42.6",
@@ -23,11 +31,12 @@
     "tslib": "^2.3.1",
     "typescript": "^4.4.3"
   },
-  "type": "module",
   "dependencies": {
     "@chainlink/contracts": "^0.2.2",
     "@ethersproject/solidity": "^5.5.0",
     "@openzeppelin/contracts": "^4.3.2",
+    "@sushiswap/core": "^1.4.2",
+    "dotenv": "^10.0.0",
     "web3w": "^0.3.2-beta.7"
   }
 }
