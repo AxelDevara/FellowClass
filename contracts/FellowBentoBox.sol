@@ -7,7 +7,7 @@ import "./utils/BoringBatchable.sol";
 
 contract FellowBentoBox is BoringBatchable {
      //amount donated by an address for leaderboard
-    mapping(address => uint) donatedAmount;
+    mapping(address => uint) public donatedAmount;
     
     struct Deposits {
         address user;
@@ -32,6 +32,7 @@ contract FellowBentoBox is BoringBatchable {
     function depositToFellowBentoBox(
         address token,
         uint256 amount,
+        address donor,
         bool fromBentoBox
     ) external returns (uint256 depositedShares) {
         if (fromBentoBox) {
@@ -51,6 +52,8 @@ contract FellowBentoBox is BoringBatchable {
                 0
             );
         }
+
+        donatedAmount[donor] += amount;
 
         deposits[totalDeposits] = Deposits({
             user: msg.sender,

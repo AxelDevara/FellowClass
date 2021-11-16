@@ -7,27 +7,26 @@ import "@chainlink/contracts/src/v0.8/VRFConsumerBase.sol";
 import "hardhat/console.sol";
 import '@openzeppelin/contracts/utils/introspection/ERC165.sol';
 import './interfaces/IERC2981.sol';
+import "./FellowBentoBox.sol";
 
-contract FellowContract is ERC721, Ownable, IERC2981, VRFConsumerBase{
+contract FellowNFT is ERC721, Ownable, IERC2981, VRFConsumerBase{
+    using Strings for uint256;
 
-    //const KOVAN_LINK_TOKEN = 0xa36085F69e2889c224210F603D836748e7dC0088;
-    //const KOVAN_VRF_COORDINATOR = 0xdD3782915140c8f3b190B5D67eAc6dc5760C46E9;
-    //const KOVAN_KEY_HASH = 0x6c3699283bda56ad74f6b855546325b68d482e983852a7a82979cc4807b641f4;
-
-    //fellow ID to kid's address
-    mapping(uint => address) kidAddresses;
+    address constant internal _LinkToken = 0xa36085F69e2889c224210F603D836748e7dC0088;
+    address constant internal _VRFCoordinator = 0xdD3782915140c8f3b190B5D67eAc6dc5760C46E9;
+    bytes32 constant internal _KeyHash = 0x6c3699283bda56ad74f6b855546325b68d482e983852a7a82979cc4807b641f4;
     
-    mapping(bytes32 => string) requestToCharacterName;
     mapping(bytes32 => address) requestToSender;
     mapping(bytes32 => uint256) requestToTokenId;
     mapping(uint256 => string) tokenIdtoTokenUri;
 
-    bytes32 internal _keyhash;
-    address public vrfCoordinator;
     uint internal randomResult;
     uint internal _fee;
+    uint internal _mintFee;
 
     address internal gameAddress;
+    FellowBentoBox immutable public bentobox;
+    address immutable public currency;
 
     struct RoyaltyInfo {
         address recipient;
@@ -46,13 +45,14 @@ contract FellowContract is ERC721, Ownable, IERC2981, VRFConsumerBase{
 
     Fellow[] public fellows;
 
-    RoyaltyInfo private _royalties;
+    RoyaltyInfo public _royalties;
 
-    constructor(address _VRFCoordinator, address _LinkToken, bytes32 _kh) VRFConsumerBase(_VRFCoordinator, _LinkToken) ERC721("Fellow", "FC"){
-        _royalties = RoyaltyInfo(address(this), uint24(2500));
-        vrfCoordinator = _VRFCoordinator;
-        _keyhash = _kh;
+    constructor(FellowBentoBox _bentobox) VRFConsumerBase(_VRFCoordinator, _LinkToken) ERC721("Fellow", "FC"){
+        _royalties = RoyaltyInfo(address(this), uint24(10000));
         _fee = 0.1 * 10**18;
+        _mintFee = 0.5 * 10**18;
+        bentobox = _bentobox;
+        currency = 0x33e24a1902620BeFB88D40714EF980Cd8653234e;
     }
 
     function setGameAddress(address _gameAddress) external onlyOwner {
@@ -60,10 +60,22 @@ contract FellowContract is ERC721, Ownable, IERC2981, VRFConsumerBase{
     }
 
     function evolve(uint _tokenId) external {
+        require(msg.sender == gameAddress, "you don't have access to call this function");
         Fellow storage fellow = fellows[_tokenId];
-        fellow.math += 10;
-        fellow.literacy += 10;
-        fellow.science += 10;
+        if(fellow.level >= 5){
+            tokenIdtoTokenUri[_tokenId] = append(_childURI(), _tokenId.toString(), ".json");
+            fellow.math += 10;
+            fellow.literacy += 10;
+            fellow.science += 10;
+        }
+        if(fellow.level >= 10){
+            tokenIdtoTokenUri[_tokenId] = append(_adultURI(), _tokenId.toString(), ".json");
+            fellow.math += 10;
+            fellow.literacy += 10;
+            fellow.science += 10;
+            fellow.wisdom += 20;
+        }
+       
     }
 
     function getMaturity(uint _tokenId) external view returns (uint){
@@ -74,37 +86,43 @@ contract FellowContract is ERC721, Ownable, IERC2981, VRFConsumerBase{
         require(msg.sender == gameAddress);
         Fellow storage fellow = fellows[_tokenId];
         if(_subject == 0){
+            fellow.level += _amount * 2;
             fellow.math += _amount;
         }
         if(_subject == 1){
+            fellow.level += _amount * 2;
             fellow.literacy += _amount;
         }
         if(_subject == 2){
+            fellow.level += _amount * 2;
             fellow.science += _amount;
         }
         if(_subject == 3){
+            fellow.level += _amount * 2;
             fellow.wisdom += _amount;
         }
         if(_subject == 4){
+            fellow.level += _amount * 2;
             fellow.strength += _amount;
         }
     }
 
-    function getNewFellow(string memory name) public returns (bytes32 requestId) {
+    function getNewFellow() public returns (bytes32 requestId) {
+        // require(IERC20(currency).approve(address(this), _mintFee));  
         require(LINK.balanceOf(address(this)) >= _fee, "Not enough LINK - fill contract with faucet");
-        bytes32 _requestId = requestRandomness(_keyhash, _fee);
-        requestToCharacterName[_requestId] = name;
+        bentobox.depositToFellowBentoBox(currency, _mintFee, msg.sender, false);
+        bytes32 _requestId = requestRandomness(_KeyHash, _fee);
         requestToSender[_requestId] = msg.sender;
         requestToTokenId[_requestId] = fellows.length;
         return _requestId;
     }
 
     function fulfillRandomness(bytes32 requestId, uint256 randomNumber) internal override {
-        uint _strength = (randomNumber % 100);
+        uint _strength = (randomNumber % 10);
         fellows.push(
             Fellow(0,_strength, 0,0,0,0)
         );
-        tokenIdtoTokenUri[requestToTokenId[requestId]] = _baseURI();
+        tokenIdtoTokenUri[requestToTokenId[requestId]] = append(_baseURI(), fellows.length.toString(), ".json");
         _safeMint(requestToSender[requestId], requestToTokenId[requestId]);
     }
 
@@ -118,16 +136,25 @@ contract FellowContract is ERC721, Ownable, IERC2981, VRFConsumerBase{
         }
     }
 
-    function mint(address to, uint256 tokenId) public onlyOwner {
-        _safeMint(to, tokenId);
-    }
-
-    function getTokenURI(uint256 tokenId) public view returns (string memory) {
+    function tokenURI(uint256 tokenId) public view override returns (string memory) {
+         require(_exists(tokenId), "ERC721Metadata: URI query for nonexistent token");
         return tokenIdtoTokenUri[tokenId];
     }
 
+    function append(string memory a, string memory b, string memory c) internal pure returns (string memory) {
+        return string(abi.encodePacked(a, b, c));
+    }
+
     function _baseURI() internal view virtual override returns (string memory) {
-        return "";
+        return "https://ipfs.io/ipfs/QmPe2NVvfBt7Ugo7zQSUuqrwouthgSV82rP1rmthrusCdR/";
+    }
+
+    function _childURI() internal view virtual  returns (string memory) {
+        return "https://ipfs.io/ipfs/QmPe2NVvfBt7Ugo7zQSUuqrwouthgSV82rP1rmthrusCdR/";
+    }
+
+    function _adultURI() internal view virtual  returns (string memory) {
+        return "https://ipfs.io/ipfs/QmPe2NVvfBt7Ugo7zQSUuqrwouthgSV82rP1rmthrusCdR/";
     }
 
     /// @inheritdoc	IERC2981
