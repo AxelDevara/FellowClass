@@ -22,6 +22,7 @@
       <!-- ({link.href}) -->
     </NavLink>
   {/each}
+  <slot></slot>
 </ul>
 
 {#if $navigating}

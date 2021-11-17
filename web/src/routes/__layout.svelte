@@ -4,6 +4,7 @@
   import '../service-worker-handler';
   import {url} from '$lib/utils/url';
   import NavBar from '$lib/components/navigation/NavBar.svelte';
+  import Blockie from '$lib/components/Blockie.svelte';
   import Notifications from '$lib/components/notification/Notifications.svelte';
   // import Install from './components/Install.svelte';
   import DarkSwitch from '$lib/components/DarkSwitch.svelte';
@@ -36,8 +37,10 @@
   links={[
     {href: url(''), title: 'Home'},
     {href: url('fellows/'), title: 'Fellows'},
+    {href: url('academy/'), title: 'Academy'},
+    {href: url('trade/'), title: 'Trade'}
   ]}
-/>
+><div class="flex-grow"></div><div class="flex flex-row"><Blockie address="093239aE0212993219"></Blockie><p>Wallet Address</p></div></NavBar>
 
 
 <slot />
