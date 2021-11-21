@@ -1,0 +1,44 @@
+Date : 2021-11-19 02:21:33
+Directory : c:\fellowclass\contracts
+Total : 15 files,  1528 codes, 435 comments, 279 blanks, all 2242 lines
+
+Languages
++----------+------------+------------+------------+------------+------------+
+| language | files      | code       | comment    | blank      | total      |
++----------+------------+------------+------------+------------+------------+
+| Solidity |         15 |      1,528 |        435 |        279 |      2,242 |
++----------+------------+------------+------------+------------+------------+
+
+Directories
++----------------------------------------------------------+------------+------------+------------+------------+------------+
+| path                                                     | files      | code       | comment    | blank      | total      |
++----------------------------------------------------------+------------+------------+------------+------------+------------+
+| .                                                        |         15 |      1,528 |        435 |        279 |      2,242 |
+| flat                                                     |          1 |        836 |        343 |        154 |      1,333 |
+| interfaces                                               |          3 |         80 |         45 |         17 |        142 |
+| libraries                                                |          3 |        192 |         12 |         24 |        228 |
+| mock                                                     |          3 |         39 |          3 |         12 |         54 |
+| utils                                                    |          1 |         40 |         22 |          7 |         69 |
++----------------------------------------------------------+------------+------------+------------+------------+------------+
+
+Files
++----------------------------------------------------------+----------+------------+------------+------------+------------+
+| filename                                                 | language | code       | comment    | blank      | total      |
++----------------------------------------------------------+----------+------------+------------+------------+------------+
+| c:\fellowclass\contracts\FellowBentoBox.sol              | Solidity |         81 |          2 |         17 |        100 |
+| c:\fellowclass\contracts\FellowNFT.sol                   | Solidity |        153 |          4 |         27 |        184 |
+| c:\fellowclass\contracts\GameContract.sol                | Solidity |         80 |          3 |         15 |         98 |
+| c:\fellowclass\contracts\Marketplace.sol                 | Solidity |         27 |          1 |          6 |         34 |
+| c:\fellowclass\contracts\flat\BentoBoxV1Flat.sol         | Solidity |        836 |        343 |        154 |      1,333 |
+| c:\fellowclass\contracts\interfaces\IBentoBoxMinimal.sol | Solidity |         43 |         34 |          9 |         86 |
+| c:\fellowclass\contracts\interfaces\IERC20.sol           | Solidity |         30 |          2 |          7 |         39 |
+| c:\fellowclass\contracts\interfaces\IERC2981.sol         | Solidity |          7 |          9 |          1 |         17 |
+| c:\fellowclass\contracts\libraries\SafeERC20.sol         | Solidity |         48 |          1 |          7 |         56 |
+| c:\fellowclass\contracts\libraries\SafeMath.sol          | Solidity |         12 |          2 |          5 |         19 |
+| c:\fellowclass\contracts\libraries\UniswapV2Library.sol  | Solidity |        132 |          9 |         12 |        153 |
+| c:\fellowclass\contracts\mock\ERC20Mock.sol              | Solidity |         25 |          1 |          8 |         34 |
+| c:\fellowclass\contracts\mock\SushiSwapFactoryMock.sol   | Solidity |          7 |          1 |          2 |         10 |
+| c:\fellowclass\contracts\mock\SushiSwapPairMock.sol      | Solidity |          7 |          1 |          2 |         10 |
+| c:\fellowclass\contracts\utils\BoringBatchable.sol       | Solidity |         40 |         22 |          7 |         69 |
+| Total                                                    |          |      1,528 |        435 |        279 |      2,242 |
++----------------------------------------------------------+----------+------------+------------+------------+------------+

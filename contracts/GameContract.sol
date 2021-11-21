@@ -9,9 +9,9 @@ import "./FellowBentoBox.sol";
 contract GameContract is Ownable , VRFConsumerBase {
     event StartedLearning(string _subject, uint _amount);
 
-    address constant internal _LinkToken = 0xa36085F69e2889c224210F603D836748e7dC0088;
-    address constant internal _VRFCoordinator = 0xdD3782915140c8f3b190B5D67eAc6dc5760C46E9;
-    bytes32 constant internal _KeyHash = 0x6c3699283bda56ad74f6b855546325b68d482e983852a7a82979cc4807b641f4;
+    address constant internal _LinkToken = 0x01BE23585060835E02B77ef475b0Cc51aA1e0709;
+    address constant internal _VRFCoordinator = 0xb3dCcb4Cf7a26f6cf6B120Cf5A73875B7BBc655B;
+    bytes32 constant internal _KeyHash = 0x2ed0feb3e7fd2022120aa84fab1945545a9f2ffc9076fd6156fa96eaff4c1311;
 
     address public immutable currency;
 
@@ -31,7 +31,7 @@ contract GameContract is Ownable , VRFConsumerBase {
 
     constructor(FellowBentoBox _bentobox, FellowNFT _fellow) VRFConsumerBase(_VRFCoordinator, _LinkToken) {
         fellow = _fellow;
-        currency = 0x33e24a1902620BeFB88D40714EF980Cd8653234e;
+        currency = 0x8ad3aA5d5ff084307d28C8f514D7a193B2Bfe725;
         fellowBentoBox = _bentobox;
         _fee = 0.1 * 10**18;
         learningFee = 5 * 10**18;

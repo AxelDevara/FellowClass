@@ -15,7 +15,7 @@ contract Marketplace {
     
     constructor(FellowNFT _fellow, FellowBentoBox _bento){
         _fellowNFT = _fellow;
-        currency = 0x33e24a1902620BeFB88D40714EF980Cd8653234e;
+        currency = 0x8ad3aA5d5ff084307d28C8f514D7a193B2Bfe725;
         _bentoBox = _bento;
     }
 

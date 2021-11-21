@@ -12,9 +12,9 @@ import "./FellowBentoBox.sol";
 contract FellowNFT is ERC721, Ownable, IERC2981, VRFConsumerBase{
     using Strings for uint256;
 
-    address constant internal _LinkToken = 0xa36085F69e2889c224210F603D836748e7dC0088;
-    address constant internal _VRFCoordinator = 0xdD3782915140c8f3b190B5D67eAc6dc5760C46E9;
-    bytes32 constant internal _KeyHash = 0x6c3699283bda56ad74f6b855546325b68d482e983852a7a82979cc4807b641f4;
+    address constant internal _LinkToken = 0x01BE23585060835E02B77ef475b0Cc51aA1e0709;
+    address constant internal _VRFCoordinator = 0xb3dCcb4Cf7a26f6cf6B120Cf5A73875B7BBc655B;
+    bytes32 constant internal _KeyHash = 0x2ed0feb3e7fd2022120aa84fab1945545a9f2ffc9076fd6156fa96eaff4c1311;
     
     mapping(bytes32 => address) requestToSender;
     mapping(bytes32 => uint256) requestToTokenId;
@@ -52,7 +52,7 @@ contract FellowNFT is ERC721, Ownable, IERC2981, VRFConsumerBase{
         _fee = 0.1 * 10**18;
         _mintFee = 0.5 * 10**18;
         bentobox = _bentobox;
-        currency = 0x33e24a1902620BeFB88D40714EF980Cd8653234e;
+        currency = 0x8ad3aA5d5ff084307d28C8f514D7a193B2Bfe725;
     }
 
     function setGameAddress(address _gameAddress) external onlyOwner {
@@ -75,11 +75,16 @@ contract FellowNFT is ERC721, Ownable, IERC2981, VRFConsumerBase{
             fellow.science += 10;
             fellow.wisdom += 20;
         }
-       
     }
 
-    function getMaturity(uint _tokenId) external view returns (uint){
-        return fellows[_tokenId].level;
+     function getMaturity(uint _tokenId) external view returns (uint){
+        Fellow memory f = fellows[_tokenId];
+        return (f.level);
+    }
+
+    function getLevel(uint _tokenId) external view returns (uint, uint, uint, uint, uint, uint){
+        Fellow memory f = fellows[_tokenId];
+        return (f.level, f.strength, f.literacy,f.math, f.science, f.wisdom);
     }
 
     function learn(uint _subject, uint _tokenId, uint _amount) external {
@@ -146,15 +151,15 @@ contract FellowNFT is ERC721, Ownable, IERC2981, VRFConsumerBase{
     }
 
     function _baseURI() internal view virtual override returns (string memory) {
-        return "https://ipfs.io/ipfs/QmPe2NVvfBt7Ugo7zQSUuqrwouthgSV82rP1rmthrusCdR/";
+        return "ipfs://Qmdz6qQ1gkHsBuxiwmLYyM8PeeiBq9JyjbGUVN3WyQeGcW/";
     }
 
     function _childURI() internal view virtual  returns (string memory) {
-        return "https://ipfs.io/ipfs/QmPe2NVvfBt7Ugo7zQSUuqrwouthgSV82rP1rmthrusCdR/";
+        return "ipfs://QmReHaDRwnkczkyUR53yPP3rAxvyPNK11zfa2CfnD4oito/";
     }
 
     function _adultURI() internal view virtual  returns (string memory) {
-        return "https://ipfs.io/ipfs/QmPe2NVvfBt7Ugo7zQSUuqrwouthgSV82rP1rmthrusCdR/";
+        return "ipfs://QmYT2qYCYTNgVxoHDgUC6fUBJsPCvmSGuz1Aw8jVyhW6YE/";
     }
 
     /// @inheritdoc	IERC2981

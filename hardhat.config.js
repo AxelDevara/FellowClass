@@ -30,8 +30,12 @@ module.exports = {
   ],
   },
   networks: {
+    rinkeby: {
+      url: process.env.MORALIS_KEY_RINKEBY || '',
+      accounts: [`0x${process.env.KOVAN_PRIVATE_KEY}`]
+    },
     kovan: {
-      url: process.env.MORALIS_KEY || '',
+      url: process.env.MORALIS_KEY_KOVAN || '',
       accounts: [`0x${process.env.KOVAN_PRIVATE_KEY}`]
     }
   },
