@@ -9,9 +9,9 @@ import "./FellowBentoBox.sol";
 contract GameContract is Ownable , VRFConsumerBase {
     event StartedLearning(string _subject, uint _amount);
 
-    address constant internal _LinkToken = 0x01BE23585060835E02B77ef475b0Cc51aA1e0709;
-    address constant internal _VRFCoordinator = 0xb3dCcb4Cf7a26f6cf6B120Cf5A73875B7BBc655B;
-    bytes32 constant internal _KeyHash = 0x2ed0feb3e7fd2022120aa84fab1945545a9f2ffc9076fd6156fa96eaff4c1311;
+    address constant internal _LinkToken = 0xa36085F69e2889c224210F603D836748e7dC0088;
+    address constant internal _VRFCoordinator = 0xdD3782915140c8f3b190B5D67eAc6dc5760C46E9;
+    bytes32 constant internal _KeyHash = 0x6c3699283bda56ad74f6b855546325b68d482e983852a7a82979cc4807b641f4;
 
     address public immutable currency;
 
@@ -23,6 +23,7 @@ contract GameContract is Ownable , VRFConsumerBase {
     uint public fundRaised;
     uint learningFee;
     FellowNFT public immutable fellow;
+    FellowBentoBox public bento;
 
     function changeLearningFee(uint newFee) external onlyOwner {
         learningFee = newFee;
@@ -30,9 +31,14 @@ contract GameContract is Ownable , VRFConsumerBase {
 
     constructor(FellowNFT _fellow) VRFConsumerBase(_VRFCoordinator, _LinkToken) {
         fellow = _fellow;
+        bento = FellowBentoBox(address(0x4a879Fd41EC08696985B79a4A01DFA4DC6DFEF90));
         currency = 0x8ad3aA5d5ff084307d28C8f514D7a193B2Bfe725;
-        _fee = 0.1 * 10**9;
-        learningFee = 5 * 10**18;
+        _fee = 0.1 * 10**18;
+        learningFee = 1;
+    }
+
+    function changeBentoBox(address _new) external onlyOwner {
+       bento = FellowBentoBox(_new);
     }
 
     function getNewRandom() internal returns (bytes32 requestId) {
@@ -45,7 +51,14 @@ contract GameContract is Ownable , VRFConsumerBase {
         _randomResult = randomNumber;
     }
 
+    function graduate(uint tokenId) external {
+        IERC20(address(0x3E0437898a5667a4769B1Ca5A34aAB1ae7E81377)).transferFrom(msg.sender, address(bento), 1 * 10**9);
+        require(fellow.checkOwnership(tokenId, msg.sender));
+        fellow.evolve(tokenId);
+    }
+
     function learnStrength(uint tokenId) external {
+        IERC20(address(0x3E0437898a5667a4769B1Ca5A34aAB1ae7E81377)).transferFrom(msg.sender, address(bento), 1 * 10**9);
         require(fellow.checkOwnership(tokenId, msg.sender));
         getNewRandom();
         fundRaised += learningFee;
@@ -54,6 +67,7 @@ contract GameContract is Ownable , VRFConsumerBase {
     }
 
     function learnMath(uint tokenId) public {
+        IERC20(address(0x3E0437898a5667a4769B1Ca5A34aAB1ae7E81377)).transferFrom(msg.sender, address(bento), 1 * 10**9);
         require(fellow.checkOwnership(tokenId, msg.sender));
         require(fellow.getMaturity(tokenId) >= 5);
          getNewRandom();
@@ -63,6 +77,7 @@ contract GameContract is Ownable , VRFConsumerBase {
     }
 
     function learnLiteracy(uint tokenId) public {
+        IERC20(address(0x3E0437898a5667a4769B1Ca5A34aAB1ae7E81377)).transferFrom(msg.sender, address(bento), 1 * 10**9);
         require(fellow.checkOwnership(tokenId, msg.sender));
         require(fellow.getMaturity(tokenId) >= 5);
          getNewRandom();
@@ -72,6 +87,7 @@ contract GameContract is Ownable , VRFConsumerBase {
     }
 
     function learnScience(uint tokenId) public {
+        IERC20(address(0x3E0437898a5667a4769B1Ca5A34aAB1ae7E81377)).transferFrom(msg.sender, address(bento), 1 * 10**9);
         require(fellow.checkOwnership(tokenId, msg.sender));
         require(fellow.getMaturity(tokenId) >= 10);
          getNewRandom();
@@ -81,6 +97,7 @@ contract GameContract is Ownable , VRFConsumerBase {
     }
 
     function learnWisdom(uint tokenId) public {
+        IERC20(address(0x3E0437898a5667a4769B1Ca5A34aAB1ae7E81377)).transferFrom(msg.sender, address(bento), 1 * 10**9);
         require(fellow.checkOwnership(tokenId, msg.sender));
         require(fellow.getMaturity(tokenId) >= 10);
          getNewRandom();

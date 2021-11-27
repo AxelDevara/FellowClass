@@ -14,23 +14,23 @@ async function main() {
   // await hre.run('compile');
 
   // We get the contract to deploy
-  const Fellow = await hre.ethers.getContractFactory("FellowNFT");
-  const fellow = await Fellow.deploy();
+  // const Fellow = await hre.ethers.getContractFactory("FellowNFT");
+  // const fellow = await Fellow.deploy();
 
-  await fellow.deployed();
+  // await fellow.deployed();
 
-  // const gameContract = await hre.ethers.getContractFactory("GameContract");
-  // const game = await gameContract.deploy("0xd9602f556E8dC2bdf0fB02cFcb7A81E1762A855F", fellow.address);
+  const gameContract = await hre.ethers.getContractFactory("GameContract");
+  const game = await gameContract.deploy("0xBEf4d4dB1f857F16d7633FCb74F19F9d8A2c3a78");
 
-  // await game.deployed();
+  await game.deployed();
 
   // const marketplaceContract = await hre.ethers.getContractFactory("Marketplace");
   // const marketplace = await marketplaceContract.deploy(fellow.address, "0xd9602f556E8dC2bdf0fB02cFcb7A81E1762A855F");
 
   // await marketplace.deployed();
 
-  console.log("Fellow deployed to:", fellow.address);
-  // console.log("Game deployed to:", game.address);
+  // console.log("Fellow deployed to:", fellow.address);
+  console.log("Game deployed to:", game.address);
   // console.log("Marketplace deployed to:", marketplace.address);
 }
 
