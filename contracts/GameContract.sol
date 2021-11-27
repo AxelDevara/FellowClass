@@ -22,18 +22,16 @@ contract GameContract is Ownable , VRFConsumerBase {
     //BentoBox
     uint public fundRaised;
     uint learningFee;
-    FellowBentoBox public immutable fellowBentoBox;
     FellowNFT public immutable fellow;
 
     function changeLearningFee(uint newFee) external onlyOwner {
         learningFee = newFee;
     }
 
-    constructor(FellowBentoBox _bentobox, FellowNFT _fellow) VRFConsumerBase(_VRFCoordinator, _LinkToken) {
+    constructor(FellowNFT _fellow) VRFConsumerBase(_VRFCoordinator, _LinkToken) {
         fellow = _fellow;
         currency = 0x8ad3aA5d5ff084307d28C8f514D7a193B2Bfe725;
-        fellowBentoBox = _bentobox;
-        _fee = 0.1 * 10**18;
+        _fee = 0.1 * 10**9;
         learningFee = 5 * 10**18;
     }
 
@@ -49,7 +47,6 @@ contract GameContract is Ownable , VRFConsumerBase {
 
     function learnStrength(uint tokenId) external {
         require(fellow.checkOwnership(tokenId, msg.sender));
-        fellowBentoBox.depositToFellowBentoBox(currency, learningFee, msg.sender, false);
         getNewRandom();
         fundRaised += learningFee;
         fellow.learn(4, tokenId, (_randomResult % 10) + 1);
@@ -59,7 +56,6 @@ contract GameContract is Ownable , VRFConsumerBase {
     function learnMath(uint tokenId) public {
         require(fellow.checkOwnership(tokenId, msg.sender));
         require(fellow.getMaturity(tokenId) >= 5);
-         fellowBentoBox.depositToFellowBentoBox(currency, learningFee, msg.sender, false);
          getNewRandom();
          fundRaised += learningFee;
         fellow.learn(0, tokenId,  (_randomResult % 10) + 1);
@@ -69,7 +65,6 @@ contract GameContract is Ownable , VRFConsumerBase {
     function learnLiteracy(uint tokenId) public {
         require(fellow.checkOwnership(tokenId, msg.sender));
         require(fellow.getMaturity(tokenId) >= 5);
-         fellowBentoBox.depositToFellowBentoBox(currency, learningFee, msg.sender, false);
          getNewRandom();
          fundRaised += learningFee;
         fellow.learn(1, tokenId, (_randomResult % 10) + 1);
@@ -79,7 +74,6 @@ contract GameContract is Ownable , VRFConsumerBase {
     function learnScience(uint tokenId) public {
         require(fellow.checkOwnership(tokenId, msg.sender));
         require(fellow.getMaturity(tokenId) >= 10);
-         fellowBentoBox.depositToFellowBentoBox(currency, learningFee, msg.sender, false);
          getNewRandom();
          fundRaised += learningFee;
         fellow.learn(2, tokenId, (_randomResult % 10) + 1);
@@ -89,7 +83,6 @@ contract GameContract is Ownable , VRFConsumerBase {
     function learnWisdom(uint tokenId) public {
         require(fellow.checkOwnership(tokenId, msg.sender));
         require(fellow.getMaturity(tokenId) >= 10);
-         fellowBentoBox.depositToFellowBentoBox(currency, learningFee, msg.sender, false);
          getNewRandom();
          fundRaised += learningFee;
         fellow.learn(3, tokenId, (_randomResult % 10) + 1);

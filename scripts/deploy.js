@@ -15,23 +15,23 @@ async function main() {
 
   // We get the contract to deploy
   const Fellow = await hre.ethers.getContractFactory("FellowNFT");
-  const fellow = await Fellow.deploy("0xd9602f556E8dC2bdf0fB02cFcb7A81E1762A855F");
+  const fellow = await Fellow.deploy();
 
   await fellow.deployed();
 
-  const gameContract = await hre.ethers.getContractFactory("GameContract");
-  const game = await gameContract.deploy("0xd9602f556E8dC2bdf0fB02cFcb7A81E1762A855F", fellow.address);
+  // const gameContract = await hre.ethers.getContractFactory("GameContract");
+  // const game = await gameContract.deploy("0xd9602f556E8dC2bdf0fB02cFcb7A81E1762A855F", fellow.address);
 
-  await game.deployed();
+  // await game.deployed();
 
-  const marketplaceContract = await hre.ethers.getContractFactory("Marketplace");
-  const marketplace = await marketplaceContract.deploy(fellow.address, "0xd9602f556E8dC2bdf0fB02cFcb7A81E1762A855F");
+  // const marketplaceContract = await hre.ethers.getContractFactory("Marketplace");
+  // const marketplace = await marketplaceContract.deploy(fellow.address, "0xd9602f556E8dC2bdf0fB02cFcb7A81E1762A855F");
 
-  await marketplace.deployed();
+  // await marketplace.deployed();
 
   console.log("Fellow deployed to:", fellow.address);
-  console.log("Game deployed to:", game.address);
-  console.log("Marketplace deployed to:", marketplace.address);
+  // console.log("Game deployed to:", game.address);
+  // console.log("Marketplace deployed to:", marketplace.address);
 }
 
 // We recommend this pattern to be able to use async/await everywhere

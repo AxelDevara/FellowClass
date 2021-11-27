@@ -15,7 +15,7 @@ async function main() {
 
   // We get the contract to deploy
   const Bento = await hre.ethers.getContractFactory("FellowBentoBox");
-  const bento = await Bento.deploy("0xF5BCE5077908a1b7370B9ae04AdC565EBd643966");
+  const bento = await Bento.deploy("0xBEf4d4dB1f857F16d7633FCb74F19F9d8A2c3a78");
 
   await bento.deployed();
 

@@ -7,7 +7,6 @@ import "@chainlink/contracts/src/v0.8/VRFConsumerBase.sol";
 import "hardhat/console.sol";
 import '@openzeppelin/contracts/utils/introspection/ERC165.sol';
 import './interfaces/IERC2981.sol';
-import "./FellowBentoBox.sol";
 
 contract FellowNFT is ERC721, Ownable, IERC2981, VRFConsumerBase{
     using Strings for uint256;
@@ -25,8 +24,6 @@ contract FellowNFT is ERC721, Ownable, IERC2981, VRFConsumerBase{
     uint internal _mintFee;
 
     address internal gameAddress;
-    FellowBentoBox immutable public bentobox;
-    address immutable public currency;
 
     struct RoyaltyInfo {
         address recipient;
@@ -47,12 +44,9 @@ contract FellowNFT is ERC721, Ownable, IERC2981, VRFConsumerBase{
 
     RoyaltyInfo public _royalties;
 
-    constructor(FellowBentoBox _bentobox) VRFConsumerBase(_VRFCoordinator, _LinkToken) ERC721("Fellow", "FC"){
+    constructor() VRFConsumerBase(_VRFCoordinator, _LinkToken) ERC721("Fellow", "FC"){
         _royalties = RoyaltyInfo(address(this), uint24(10000));
         _fee = 0.1 * 10**18;
-        _mintFee = 0.5 * 10**18;
-        bentobox = _bentobox;
-        currency = 0x8ad3aA5d5ff084307d28C8f514D7a193B2Bfe725;
     }
 
     function setGameAddress(address _gameAddress) external onlyOwner {
@@ -87,6 +81,14 @@ contract FellowNFT is ERC721, Ownable, IERC2981, VRFConsumerBase{
         return (f.level, f.strength, f.literacy,f.math, f.science, f.wisdom);
     }
 
+    function getAllMintedFellows() external view returns (string[] memory){
+        string[] memory f = new string[](fellows.length);
+        for(uint i = 0; i < fellows.length; i ++) {
+            f[i] = tokenURI(i);
+        }
+        return f;
+    }
+
     function learn(uint _subject, uint _tokenId, uint _amount) external {
         require(msg.sender == gameAddress);
         Fellow storage fellow = fellows[_tokenId];
@@ -112,18 +114,17 @@ contract FellowNFT is ERC721, Ownable, IERC2981, VRFConsumerBase{
         }
     }
 
-    function getNewFellow() public returns (bytes32 requestId) {
+    function getNewFellow(address sender) public returns (bytes32 requestId) {
         // require(IERC20(currency).approve(address(this), _mintFee));  
         require(LINK.balanceOf(address(this)) >= _fee, "Not enough LINK - fill contract with faucet");
-        bentobox.depositToFellowBentoBox(currency, _mintFee, msg.sender, false);
         bytes32 _requestId = requestRandomness(_KeyHash, _fee);
-        requestToSender[_requestId] = msg.sender;
+        requestToSender[_requestId] = sender;
         requestToTokenId[_requestId] = fellows.length;
         return _requestId;
     }
 
     function fulfillRandomness(bytes32 requestId, uint256 randomNumber) internal override {
-        uint _strength = (randomNumber % 10);
+        uint _strength = randomNumber % 10;
         fellows.push(
             Fellow(0,_strength, 0,0,0,0)
         );
