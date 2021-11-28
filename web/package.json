@@ -29,6 +29,6 @@
 	},
 	"type": "module",
 	"dependencies": {
-		"moralis": "^0.0.132"
+		"@okrad/svelte-progressbar": "^1.11.3"
 	}
 }

@@ -1,5 +1,5 @@
 import preprocess from 'svelte-preprocess';
-const adapter = require('@sveltejs/adapter-static');
+import adapter from "@sveltejs/adapter-static";
 
 /** @type {import('@sveltejs/kit').Config} */
 const config = {

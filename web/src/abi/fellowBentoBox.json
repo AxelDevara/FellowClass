@@ -1,0 +1,132 @@
+[
+	{
+		"inputs": [{ "internalType": "contract FellowNFT", "name": "_fellow", "type": "address" }],
+		"stateMutability": "nonpayable",
+		"type": "constructor"
+	},
+	{
+		"inputs": [
+			{ "internalType": "bytes[]", "name": "calls", "type": "bytes[]" },
+			{ "internalType": "bool", "name": "revertOnFail", "type": "bool" }
+		],
+		"name": "batch",
+		"outputs": [],
+		"stateMutability": "payable",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "bentoBox",
+		"outputs": [{ "internalType": "contract IBentoBoxMinimal", "name": "", "type": "address" }],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{ "internalType": "address", "name": "token", "type": "address" },
+			{ "internalType": "uint256", "name": "amount", "type": "uint256" },
+			{ "internalType": "address", "name": "donor", "type": "address" },
+			{ "internalType": "bool", "name": "fromBentoBox", "type": "bool" }
+		],
+		"name": "depositToFellowBentoBox",
+		"outputs": [
+			{ "internalType": "uint256", "name": "depositedShares", "type": "uint256" },
+			{ "internalType": "uint256", "name": "currentDeposit", "type": "uint256" }
+		],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+		"name": "deposits",
+		"outputs": [
+			{ "internalType": "address", "name": "user", "type": "address" },
+			{ "internalType": "address", "name": "token", "type": "address" },
+			{ "internalType": "uint256", "name": "depositedShares", "type": "uint256" }
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [{ "internalType": "address", "name": "", "type": "address" }],
+		"name": "donatedAmount",
+		"outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "fellowNFT",
+		"outputs": [{ "internalType": "contract FellowNFT", "name": "", "type": "address" }],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "mint",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "owner",
+		"outputs": [{ "internalType": "address", "name": "", "type": "address" }],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{ "internalType": "contract IERC20", "name": "token", "type": "address" },
+			{ "internalType": "address", "name": "from", "type": "address" },
+			{ "internalType": "address", "name": "to", "type": "address" },
+			{ "internalType": "uint256", "name": "amount", "type": "uint256" },
+			{ "internalType": "uint256", "name": "deadline", "type": "uint256" },
+			{ "internalType": "uint8", "name": "v", "type": "uint8" },
+			{ "internalType": "bytes32", "name": "r", "type": "bytes32" },
+			{ "internalType": "bytes32", "name": "s", "type": "bytes32" }
+		],
+		"name": "permitToken",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{ "internalType": "address", "name": "user", "type": "address" },
+			{ "internalType": "bool", "name": "approved", "type": "bool" },
+			{ "internalType": "uint8", "name": "v", "type": "uint8" },
+			{ "internalType": "bytes32", "name": "r", "type": "bytes32" },
+			{ "internalType": "bytes32", "name": "s", "type": "bytes32" }
+		],
+		"name": "setBentoBoxApproval",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "totalDeposits",
+		"outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{ "internalType": "uint256", "name": "depositId", "type": "uint256" },
+			{ "internalType": "uint256", "name": "amount", "type": "uint256" },
+			{ "internalType": "bool", "name": "toBentoBox", "type": "bool" }
+		],
+		"name": "withdrawFromFellowBentoBox",
+		"outputs": [{ "internalType": "uint256", "name": "sharesWithdrawn", "type": "uint256" }],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "wrapper",
+		"outputs": [{ "internalType": "contract WAMPL", "name": "", "type": "address" }],
+		"stateMutability": "view",
+		"type": "function"
+	}
+]
