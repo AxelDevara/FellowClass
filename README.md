@@ -4,7 +4,7 @@ Feel free to fork this project. Head to web folder to follow the start procedure
 ## Kovan Deployments
 FellowNFT Smart Contract: 0xBEf4d4dB1f857F16d7633FCb74F19F9d8A2c3a78 \
 FellowBentoBox Smart Contract: 0x4a879Fd41EC08696985B79a4A01DFA4DC6DFEF90 \
-GameContract: 0x4ae57700766b955bAa03bD455cdd3BDCB3Cd7721 \
+GameContract: 0x4ae57700766b955bAa03bD455cdd3BDCB3Cd7721 
 
 Make sure the LINK token is sufficient for gas. I have put about 4 LINKs on FellowNFT & GameContract I hope it's enough for you guys to try :)
 
