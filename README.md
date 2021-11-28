@@ -1,6 +1,13 @@
 ## Fellow Class
 Feel free to fork this project. Head to web folder to follow the start procedure.
 
+## Kovan Deployments
+FellowNFT Smart Contract: 0xBEf4d4dB1f857F16d7633FCb74F19F9d8A2c3a78
+FellowBentoBox Smart Contract: 0x4a879Fd41EC08696985B79a4A01DFA4DC6DFEF90
+GameContract: 0x4ae57700766b955bAa03bD455cdd3BDCB3Cd7721
+
+Make sure the LINK token is sufficient for gas. I have put about 4 LINKs on FellowNFT & GameContract I hope it's enough for you guys to try :)
+
 ## Inspiration
 We have experience in contributing to charity activities. Axel is a donor to various orphanages in Indonesia while Eloise was a contributor to an Ecological Conservation group in South East Asia. We feel that there is the root of most problems is education inequality. Where you are born and to whom you were born has a domino effect on how you are educated and how you will contribute back to society. For example, even in a rich country like US, the probability of children born in the bottom fifth of income distribution reaching the top fifth is only around 7.2%. These numbers are due to many factors such as the quality of schools in poor states, low number of opportunities, and high crime rates. Could you imagine how worse it is in third-world countries?
 
